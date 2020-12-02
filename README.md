@@ -1,7 +1,55 @@
 # ctf-cheatsheet
 This repo comprises useful code bytes for solving common ctf tasks.
 
-### buffer overflow
+## linux privileges
+##### get current user
+```bash
+whoami
+```
+##### check, what can be executed with root
+```bash
+sudo -l
+```
+->
+```
+sudo: unable to resolve host domain: Temporary failure in name resolution
+Matching Defaults entries for low on domain:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+User low may run the following commands on domain:
+    (root) NOPASSWD: /usr/bin/pip3
+```
+
+## linux network
+##### change hosts file
+```bash
+sudo nano /etc/hosts
+```
+
+##### listen for reverse shell exploits
+```bash
+nc -lvp 1234
+```
+
+##### scan for folders
+
+gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
+```bash
+gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
+```
+
+wfuzz
+```bash
+gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
+```
+
+##### scan for subdomains
+1) add main domain to hosts
+2) run wfuzz (here: hide results with code 301)
+```bash
+wfuzz -c -w /home/path/subdomains.txt -u "http://domain.com" -H "Host: FUZZ.domain.com" -t 50 --hc 301
+```
+
+## buffer overflow
 
 ##### execute locally, string as text input
 ###### bash
@@ -35,3 +83,16 @@ r.recvline()
 r.sendline(payload)
 r.interactive()
 ```
+
+
+## python packages
+##### build python package
+```bash
+python3 setup.py sdist bdist_wheel
+```
+
+##### upload with twine
+```bash
+python3 -m twine upload --repository-url http://pypi.domain.com:8080 /home/path/dist/* --verbose
+```
+-> enter username and password
