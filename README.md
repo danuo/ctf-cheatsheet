@@ -1,15 +1,21 @@
 # ctf-cheatsheet
 This repo comprises useful code bytes for solving common ctf tasks.
 
-## linux privileges
-##### get current user
+## linux binary debugger [gdb]
+with peda plugin: https://github.com/longld/peda
+###### useful commands
 ```bash
-whoami
+gdb ./file        # open binary in gdb
+run               # r: run binary from start till to first breakpoint
+break *0x080492c0 # set breakpoint to address
+break main        # set breakpoint to beginning of main() function
+info break        # show all breakpoints
+-> del 1          # delete first breakpoint
+continue          # c: continue execution till next breakpoint
+next              # n: execute one line
+x/300xb $esp      # show 300 bytes from stack (esp)
 ```
-##### check, what can be executed with root
-```bash
-sudo -l
-```
+
 ## linux network
 ##### change hosts file
 ```bash
@@ -56,6 +62,7 @@ curl -d name=admin -d shoesize=12 http://example.com/
 ```bash
 wfuzz -c -d "username=FUZZ&password=n00bsec" -w /usr/share/seclists/Usernames/Names/names.txt -u http://10.10.10.73/login.php
 ```
+
 ## buffer overflow
 ##### execute locally, string as text input
 ###### bash
@@ -87,6 +94,16 @@ r = remote(ip, port)
 r.recvline()
 r.sendline(payload)
 r.interactive()
+```
+
+## linux privileges
+##### get current user
+```bash
+whoami
+```
+##### check, what can be executed with root
+```bash
+sudo -l
 ```
 
 ## python packages
