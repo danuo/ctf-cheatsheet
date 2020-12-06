@@ -21,14 +21,23 @@ x/300xb $esp      # show 300 bytes from stack (esp)
 ```bash
 sudo nano /etc/hosts
 ```
+##### reverse shell exploits
+https://gtfobins.github.io/
 ##### listen for reverse shell exploits
 ```bash
 nc -lvp 1234
+# or
+socat file:`tty`,raw,echo=0 tcp-listen:12345
 ```
 ##### portscan
-###### nmap, initial scan
+###### nmap, initial scan (scans ~1000 scans)
 ```bash
-nmap -Pn -n -oN nmap/initial 10.10.10.10
+nmap -Pn -n -oN nmap_initial.txt 10.10.10.10
+nmap -sV -sT -sC -o nmap_initial2.txt 10.10.10.10
+```
+###### nmap, full port scan
+```bash
+namp -A -p- -oN nmap_full.txt 10.10.10.10
 ```
 ###### nmap, target scan on port 20 and 80
 ```bash
@@ -97,6 +106,14 @@ r.interactive()
 ```
 
 ## linux privileges
+##### upgrade shell with python
+```bash
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
+##### enumerate linux system (for example with www-data user)
+```bash
+https://github.com/rebootuser/LinEnum
+```
 ##### get current user
 ```bash
 whoami
