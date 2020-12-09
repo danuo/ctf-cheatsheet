@@ -1,34 +1,54 @@
 # ctf-cheatsheet
 This repo comprises useful code bytes for solving common ctf tasks.
-
-## linux binary debugger [gdb]
-with peda plugin: https://github.com/longld/peda
-###### useful commands
-```bash
-gdb ./file        # open binary in gdb
-run               # r: run binary from start till to first breakpoint
-break *0x080492c0 # set breakpoint to address
-break main        # set breakpoint to beginning of main() function
-info break        # show all breakpoints
--> del 1          # delete first breakpoint
-continue          # c: continue execution till next breakpoint
-next              # n: execute one line
-x/300xb $esp      # show 300 bytes from stack (esp)
-```
-
-## linux network
-##### change hosts file
-```bash
-sudo nano /etc/hosts
-```
-##### reverse shell exploits
+## initial tasks and enumeration
+## linux privileges
+##### exploits/privesc for common binaries
 https://gtfobins.github.io/
-##### listen for reverse shell exploits
+##### create python webserver
+```
+python -m SimpleHTTPServer 4004
+python3 -m http.server 4004
+```
+##### listen for reverse shell connection
 ```bash
 nc -lvp 1234
 # or
 socat file:`tty`,raw,echo=0 tcp-listen:12345
 ```
+##### add ssh key to trusted (login)
+```bash
+echo "public key on kali" >> authorized_keys
+```
+##### upgrade shell with python
+
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
+##### get current user
+```bash
+whoami
+```
+##### change user to username
+```bash
+su - username
+```
+##### check, what can be executed with root
+```bash
+sudo -l
+```
+##### enumerate linux system (for example with www-data user)
+```bash
+https://github.com/rebootuser/LinEnum
+```
+## reverse hash
+```bash
+john hashes.txt --word-list=/usr/share/wordlists/somelist.txt --fformat-Raw-SHA256 --show
+```
+## linux network
+##### change hosts file
+```bash
+sudo nano /etc/hosts
+```
+
 ##### portscan
 ###### nmap, initial scan (scans ~1000 scans)
 ```bash
@@ -105,22 +125,19 @@ r.sendline(payload)
 r.interactive()
 ```
 
-## linux privileges
-##### upgrade shell with python
+## linux binary debugger [gdb]
+with peda plugin: https://github.com/longld/peda
+###### useful commands
 ```bash
-python -c 'import pty; pty.spawn("/bin/bash")'
-```
-##### enumerate linux system (for example with www-data user)
-```bash
-https://github.com/rebootuser/LinEnum
-```
-##### get current user
-```bash
-whoami
-```
-##### check, what can be executed with root
-```bash
-sudo -l
+gdb ./file        # open binary in gdb
+run               # r: run binary from start till to first breakpoint
+break *0x080492c0 # set breakpoint to address
+break main        # set breakpoint to beginning of main() function
+info break        # show all breakpoints
+-> del 1          # delete first breakpoint
+continue          # c: continue execution till next breakpoint
+next              # n: execute one line
+x/300xb $esp      # show 300 bytes from stack (esp)
 ```
 
 ## python packages
