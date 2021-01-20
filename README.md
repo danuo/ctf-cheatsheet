@@ -67,6 +67,11 @@ https://github.com/rebootuser/LinEnum
 ## reverse hash
 ```bash
 john hashes.txt --word-list=/usr/share/wordlists/somelist.txt --fformat-Raw-SHA256 --show
+
+hashcat -m 3200 hash.txt wordlist.txt -r /usr/share/hashcat/rules/best64.rule --debug-mode=1 --debug-file=matched.rule
+
+bcrypt (3200), bruteforce with pattern:
+hashcat -m 3200 -a 3 /home/dan/Documents/delivery/hash.txt PleaseSubscribe\!?d?d
 ```
 ## linux network
 ##### change hosts file
